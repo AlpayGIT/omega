@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: nanajanashia/argocd-app:1.0
+        image: europe-west2-docker.pkg.dev/cw-alpay-goekce-sandbox/hello-repo/hello-app:1.0
         ports:
         - containerPort: 8080
