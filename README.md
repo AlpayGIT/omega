@@ -1,6 +1,6 @@
 # Multi-Cluster Setup with GKE, Anthos, and ArgoCD
 
-This Bash script automates the configuration of Google Cloud services and sets up a multi-cluster environment using GKE (Google Kubernetes Engine), Anthos, and ArgoCD.
+The fleet_prep.sh script automates the configuration of Google Cloud services and sets up a multi-cluster environment using GKE (Google Kubernetes Engine), Anthos, and ArgoCD.
 
 ## Prerequisites
 
@@ -62,4 +62,33 @@ Before running the script, ensure you have the following:
     - Anthos Service Mesh Dashboard: [https://asm-gw-ip](https://asm-gw-ip)
     - ArgoCD Dashboard: [https://argocd.endpoints.PROJECT_ID.cloud.goog](https://argocd.endpoints.PROJECT_ID.cloud.goog)
 
-    The script also outputs the URLs for your convenience.
+# Creating a new app from the app template
+One application cluster is ready to serve apps. Now all we need to do is create configs for a new app and push them up to the Argocd sync repo and all the prep we have done will simply allow this app to start serving traffic through the ASM gateway.
+
+1. **Set Environment Variables**
+
+    Replace the placeholder values in the script with your specific configuration:
+
+    ```bash
+    export APP_NAME=<your-app-name>
+    export APP_IMAGE=<your-app-image>
+    export PROJECT_ID=<your-project-id>
+    export TEAM_NAME=<your-team-name>
+    ```
+
+2. **Run the Script**
+
+    Execute the script to deploy the application and configure GitOps:
+
+    ```bash
+    ./team_app_add.sh -a $APP_NAME -i $APP_IMAGE -p $PROJECT_ID -t $TEAM_NAME
+    ```
+
+    This script performs the following steps:
+
+    - Configures Cloud Endpoint DNS for the application.
+    - Deploys the application-specific endpoint and SSL certificate.
+    - Copies application templates to the appropriate directories.
+    - Replaces placeholders in configuration files with provided values.
+    - Commits and pushes changes to the Git repository for ArgoCD.
+    - Applies configuration changes to ArgoCD for different waves.
