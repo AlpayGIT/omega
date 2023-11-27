@@ -9,6 +9,7 @@ Before running the script, ensure you have the following:
 - A Google Cloud project.
 - Appropriate permissions to enable services and create clusters.
 - `gcloud` CLI installed and configured.
+- [ArgoCD CLI] installed and configured. (https://argo-cd.readthedocs.io/en/stable/cli_installation/)
 
 ## Usage
 
