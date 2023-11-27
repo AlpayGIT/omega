@@ -92,3 +92,34 @@ One application cluster is ready to serve apps. Now all we need to do is create 
     - Replaces placeholders in configuration files with provided values.
     - Commits and pushes changes to the Git repository for ArgoCD.
     - Applies configuration changes to ArgoCD for different waves.
+  
+# Add another application cluster to the Fleet
+
+1. **Set Environment Variables**
+
+    Replace the placeholder values in the script with your specific configuration:
+
+    ```bash
+    export PROJECT_ID=<your-project-id>
+    export CLUSTER_NAME=<your-cluster-name>
+    export CLUSTER_REGION=<your-cluster-region>
+    export APP_DEPLOYMENT_WAVE=<deployment-wave>
+    ```
+
+2. **Run the Script**
+
+    Execute the script to deploy the GKE cluster and integrate it with Anthos Fleet:
+
+    ```bash
+    ./fleet_cluster_add.sh -p $PROJECT_ID -n $CLUSTER_NAME -r $CLUSTER_REGION -w $APP_DEPLOYMENT_WAVE
+    ```
+
+    This script performs the following steps:
+
+    - Checks if the cluster already exists; if not, creates a new GKE cluster.
+    - Configures firewall rules for multi-cluster pod communication.
+    - Registers the GKE cluster with Anthos Fleet.
+    - Configures network tags and updates the cluster labels.
+    - Configures namespaces and service accounts in the GKE cluster.
+    - Creates a TLS secret for Anthos Service Mesh (ASM) gateways.
+    - Updates Anthos Fleet management settings for the cluster.
